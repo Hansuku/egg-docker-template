@@ -1,0 +1,37 @@
+server {
+    listen 80;
+    server_name localhost;
+    return 301  https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name localhost;
+
+    ssl_certificate      your.cert;
+    ssl_certificate_key  your.key;
+
+    ssl_session_cache    shared:SSL:1m;
+    ssl_session_timeout  5m;
+
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host  $http_host;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_set_header Connection "";
+        proxy_pass http://nodejs:7001/;
+        proxy_redirect default;
+        }
+    
+    if ($time_iso8601 ~ "^(\d{4})-(\d{2})-(\d{2})") {
+        set $year $1;
+        set $month $2;
+        set $day $3;
+    }
+
+    access_log /var/log/nginx/$year$month$day.log default;
+
+    }

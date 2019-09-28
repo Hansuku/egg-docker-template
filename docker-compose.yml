@@ -1,0 +1,55 @@
+version: "3"
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+    node_modules:
+    mongo_data:
+
+services:
+
+### nginx #################
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      -  80:80
+      -  443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/cert:/etc/nginx/cret
+      - ./logs/nginx:/var/log/nginx
+    restart: always
+    depends_on:
+      - nodejs
+    networks:
+      - my-network
+
+### node ##############
+  nodejs:
+    build:
+      context: ./node
+    ports:
+      - 127.0.0.1:7001:7001
+    volumes:
+      - ./node:/app/
+      - node_modules:/app/node_modules
+    restart: always
+    depends_on:
+      - mongo
+    networks:
+      - my-network
+
+### mongoDB ########################
+  mongo:
+    build:
+      context: ./mongo
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+    networks:
+      - my-network
