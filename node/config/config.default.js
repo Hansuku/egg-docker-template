@@ -18,8 +18,6 @@ module.exports = appInfo => {
     // add your middleware config here
     config.middleware = [
         'gzip',
-        'jwtErrorHandler',
-        // 'auth',
     ];
 
     // jwt setting
@@ -30,11 +28,6 @@ module.exports = appInfo => {
     // gzip setting
     config.gzip = {
         threshold: 1024, // less then 1k do not comporess
-    };
-
-    // auth setting
-    config.jwtErrorHandler = {
-        ignore: ['/user/login', '/user/registered']
     };
 
     // csrf setting

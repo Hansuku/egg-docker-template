@@ -1,7 +1,7 @@
 {
-    "name": "front-end-microservice",
+    "name": "egg-docker-template",
     "version": "1.0.0",
-    "description": "Dayi Tech Front-End Microservice",
+    "description": "edd-docker-template",
     "private": true,
     "egg": {
         "declarations": true
@@ -14,9 +14,7 @@
         "egg-jwt": "^3.1.6",
         "egg-scripts": "^2.11.0",
         "koa-is-json": "^1.0.0",
-        "mongoose": "^5.7.0",
-        "qiniu": "^7.2.2",
-        "xunfeisdk": "^1.0.1"
+        "mongoose": "^5.7.0"
     },
     "devDependencies": {
         "autod": "^3.0.1",

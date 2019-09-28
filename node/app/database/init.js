@@ -20,7 +20,7 @@ exports.connect = () => {
     return new Promise((resolve, reject) => {
         // 连不上进行重连，最多三次
         if (maxConnectTimes <= 3) {
-            maxConnectTimes ++
+            maxConnectTimes++
             mongoose.connect(connectConfig,
                 {
                     useNewUrlParser: true
@@ -35,6 +35,6 @@ exports.connect = () => {
         db.once('open', () => {
             console.log('db connect success');
             resolve();
-        });   
+        });
     });
 }

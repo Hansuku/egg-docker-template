@@ -1,4 +1,4 @@
-# node use egg-js
+# egg-docker-template
 
 
 ## QuickStart
