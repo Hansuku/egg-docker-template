@@ -1,7 +1,7 @@
 # egg-docker-template
-> 使用 docker 去一站式构建 nodejs、nginx、mongodb
+> Use docker to build nodejs/nginx/mongodb
 
-## 项目结构
+## Project structure
 ```
 .
 ├── README.md
@@ -39,10 +39,10 @@
     ├── test
     └── typings
 ```
-## 快手上手
-如果是你 MacOS 或 Windows ，直接下载[Docker Desktop](https://www.docker.com/products/docker-desktop)，下载很慢的话，可以去 [DaoCloud](http://get.daocloud.io/)。
-如果是 linux 的话，需要以下几个步骤，如果你的服务器没有`yum`的话，需要先去安装 `yum`，安装`yum`篇幅不小就不在这边展开。
-**以防万一，清理 Docker**
+## Quickly started
+MacOS or Windows: download [Docker Desktop](https://www.docker.com/products/docker-desktop).
+Linux: use `yum install`:
+**Clear Old Docker**
 ```
 sudo yum remove docker \
 				docker-client \
@@ -55,40 +55,39 @@ sudo yum remove docker \
                 docker-engine-selinux \
                 docker-engine
 ```
-**安装依赖**
+**Installation dependence**
 ```
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
-**设置 yum 源**(可以任意其他的，我这里用的阿里)
+**Set yum srouce**(Optional)
 ```
 sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
-**更新缓存**
+**Refresh cache**
 ```
 sudo yum makecache fast
 ```
-**安装 Docker-ce**
+**Install Docker-ce**
 ```
 sudo yum -y install docker-ce
 ```
-**启动 Docker**
+**Start Docker**
 ```
 sudo systemctl start docker
 ```
-**测试命令**
+**Test**
 ```
 docker -v
 ```
-当你看到 docker 输出版本后即可，然后开始安装这个模板
+you will see the version callback
 ```
-git@github.com:Hansuku/egg-docker-template.git
+git clone git@github.com:Hansuku/egg-docker-template.git
 ```
-启动
+start app
 ```
 docker-compose up -d
 ```
-启动完成后，需要配置`node`与`mongodb`的链接，我已经在`node/.env.example`中写好了样例，你可以直接把这个文件改成`.env`，里面存有数据库地址、数据库名称、账号密码等等。
-然后进入`mongodb`的容器，配置管理员账号以及数据库账号：
+when it done, you need configuration `node` connect to `mongodb`, the template at `node/.env.example`, you can copy and rename it to `.env`, the file contains the host/username/password..., then enter the mongo's container, configuration admin account and a lot:
 ```
 docker ps
 CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                                      NAMES
@@ -96,18 +95,18 @@ CONTAINER ID        IMAGE                        COMMAND                  CREATE
 596247f36cbe        egg-docker-template_nginx    "/bin/sh -c nginx"       3 hours ago         Up 3 hours          0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   egg-docker-template_nginx_1
 9bcac416cd63        egg-docker-template_mongo    "docker-entrypoint.s…"   3 hours ago         Up 3 hours          127.0.0.1:27017->27017/tcp                 egg-docker-template_mongo_1
 ```
-我们先查询到 `mongodb` 所在的容器名字或 ID，然后进入它：
+we need mongodb's container name or id , and use `exec` to enter.
 ```
 docker exec -it egg-docker-template_mongo_1 /bin/sh
-// 或者使用 docker-compose 定义的短名进入
+// or use the shorname with docker-compose
 docker-compose exec mongo /bin/sh
 ```
-现在你进入了容器的 shell，只需要在命令行输入`mongo`打开 mongodb，然后创建账号
-切换到管理员库
+now you enter container's shell, just only enter `mongo` to open mongodb, and create account.
+switch to admin database
 ```
 use admin
 ```
-创建账号
+create admin user
 ```
 db.createUser(
 {
@@ -116,11 +115,11 @@ db.createUser(
         roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
 }
 ```
-创建一个 test 库
+create a database name 'test'
 ```
 use test
 ```
-创建 test 库用户，赋予读写权限
+create user for 'test', and give read and write permission
 ```
 db.createUser(
 {
@@ -131,14 +130,14 @@ db.createUser(
     ]
 }
 ```
-上面创建的数据库和账密需要与`.env`文件里对应
+the database and account created above need to correspond to the `.env` file.
 
-然后你就可以访问接口了
+like that you can access the api:
 ```
 http://127.0.0.1:7001/registered
 ```
-这个接口是`POST`，需要附带上`phone`,`username`,`password`参数
+the interface's method is`POST`, parameter is`phone`,`username`,`password`,like:
 ![postman](https://cdn.hansuku.com/WechatIMG940.png)
-然后你可以在数据库中查询到相关数据。
+also, you can query relevant data in database.
 
-DONE😆😆😆，你已经创建了一个模板，可以在此之上去修改、完善成你的项目基底。
+DONE😆😆😆,you are success, you can modify and improve it on this template, make it the base of your project.

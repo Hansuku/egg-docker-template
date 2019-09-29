@@ -39,7 +39,7 @@
     ├── test
     └── typings
 ```
-## 快手上手
+## 快速上手
 如果是你 MacOS 或 Windows ，直接下载[Docker Desktop](https://www.docker.com/products/docker-desktop)，下载很慢的话，可以去 [DaoCloud](http://get.daocloud.io/)。
 如果是 linux 的话，需要以下几个步骤，如果你的服务器没有`yum`的话，需要先去安装 `yum`，安装`yum`篇幅不小就不在这边展开。
 **以防万一，清理 Docker**
