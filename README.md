@@ -1,6 +1,6 @@
 # egg-docker-template
 > Use docker to build nodejs/nginx/mongodb
-
+[中文文档](https://github.com/Hansuku/egg-docker-template/blob/master/README.zh-CN.md)
 ## Project structure
 ```
 .
@@ -140,4 +140,4 @@ the interface's method is`POST`, parameter is`phone`,`username`,`password`,like:
 ![postman](https://cdn.hansuku.com/WechatIMG940.png)
 also, you can query relevant data in database.
 
-DONE😆😆😆,you are success, you can modify and improve it on this template, make it the base of your project.
+DONE😆😆😆, you can modify and improve it on this template, make it the base of your project.
