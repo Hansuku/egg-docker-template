@@ -114,7 +114,7 @@ db.createUser(
     user: "admin",
     pwd: "admin",
         roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
-}
+})
 ```
 create a database name 'test'
 ```
@@ -129,7 +129,7 @@ db.createUser(
     roles: [
         { role: "readWrite", db: "test" }
     ]
-}
+})
 ```
 the database and account created above need to correspond to the `.env` file.
 
